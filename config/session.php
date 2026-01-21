@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default' => 'file',
+    'default' => 'array',
     'lifetime' => 120,
     'expire_on_close' => false,
     'encrypt' => false,
