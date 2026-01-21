@@ -8,6 +8,6 @@ return [
     'timezone' => 'UTC',
     'locale' => 'en',
     'cipher' => 'AES-256-CBC',
-    'key' => '',
+    'key' => 'base64:3d+U9OMwI0nILZvdvTq8BqM5N0eGqW4j2kR7vH5wA8A=',
     'previous_keys' => [],
 ];
