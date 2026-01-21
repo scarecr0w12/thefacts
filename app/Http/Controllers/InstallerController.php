@@ -17,7 +17,9 @@ class InstallerController extends Controller
             return redirect()->route('claims.index');
         }
 
-        return view('installer.index');
+        return view('installer.index', [
+            'errors' => collect(),
+        ]);
     }
 
     /**
