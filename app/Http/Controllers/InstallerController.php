@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\MessageBag;
 
 class InstallerController extends Controller
 {
@@ -18,7 +19,7 @@ class InstallerController extends Controller
         }
 
         return view('installer.index', [
-            'errors' => collect(),
+            'errors' => new MessageBag(),
         ]);
     }
 
