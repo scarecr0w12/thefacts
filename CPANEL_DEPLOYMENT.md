@@ -27,26 +27,13 @@ ssh username@yourdomain.com
 cd public_html/vericrown  # or wherever you uploaded
 ```
 
-### 3. Create .env File
-
-```bash
-# Copy the example file
-cp .env.example .env
-```
-
-### 4. Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 composer install --no-dev --optimize-autoloader
 ```
 
-### 5. Generate Application Key
-
-```bash
-php artisan key:generate
-```
-
-### 6. Set Permissions (IMPORTANT for cPanel)
+### 4. Set Permissions (IMPORTANT for cPanel)
 
 ```bash
 # Set proper permissions for Laravel
@@ -61,7 +48,7 @@ chown -R nobody:nobody storage bootstrap/cache
 chown -R www-data:www-data storage bootstrap/cache
 ```
 
-### 7. Access the Installation Wizard
+### 5. Access the Installation Wizard
 
 Open your browser and navigate to:
 ```
@@ -73,21 +60,7 @@ Or if in a subdirectory:
 https://yourdomain.com/vericrown/install
 ```
 
-### 8. Complete the Installation Wizard
-
-Open your browser and navigate to:
-```
-https://yourdomain.com/install
-```
-
-The installer will ask you to provide:
-- **Application Settings**: Application name and URL
-- **Database Configuration**: The database host, name, username, and password you created in cPanel
-- **Admin Account**: Create your initial admin user account
-
-Simply fill in the form with your cPanel database credentials and click "Complete Installation".
-
-### 9. Login
+### 6. Complete the Installation Wizard
 
 After installation completes, you'll be redirected to the login page. Use the admin credentials you created.
 
@@ -192,11 +165,10 @@ If you see a different page, the installation might already be complete. To rese
 
 ```bash
 # Via SSH:
-nano .env
-# Find line: INSTALLATION_COMPLETE=true
-# Change to: INSTALLATION_COMPLETE=false
-# Save (Ctrl+X, Y, Enter)
+rm config/installer.php
 ```
+
+Then visit `/install` again to re-run the installer.
 
 ### Database Connection Errors
 
@@ -234,36 +206,23 @@ tail -100 /home/username/public_html/error_log
    ```bash
    php artisan cache:clear
    ```
-2. Check file permissions on `.env`
+2. Check file permissions on config files
 3. Verify database connection
 
 ---
 
-## Environment Variables (Created by Installer)
+## Configuration (Created by Installer)
 
-The installer automatically sets these in `.env`:
+The installer automatically updates these PHP config files:
 
-```
-APP_NAME=VeriCrowd
-APP_ENV=production
-APP_DEBUG=false
-APP_URL=https://yourdomain.com
+**config/app.php:**
+- Application name
+- Application URL
+- Application encryption key
 
-DB_CONNECTION=mysql
-DB_HOST=localhost
-DB_PORT=3306
-DB_DATABASE=username_vericrown
-DB_USERNAME=username_dbuser
-DB_PASSWORD=your_password
-
-QUEUE_CONNECTION=sync
-CACHE_DRIVER=file
-SESSION_DRIVER=cookie
-
-INSTALLATION_COMPLETE=true
-```
-
-**DO NOT share your .env file** - it contains sensitive credentials.
+**config/database.php:**
+- Database host, port, database name
+- Database username and password
 
 ---
 
@@ -273,7 +232,7 @@ INSTALLATION_COMPLETE=true
 
 1. ✅ Set `APP_DEBUG=false` (installer does this automatically)
 2. ✅ Use HTTPS/SSL (configure in cPanel)
-3. ✅ Keep `.env` out of version control (already in .gitignore)
+3. ✅ Keep config files secure (read-only on production)
 4. ✅ Change default admin password after installation
 5. ✅ Keep Laravel updated: `composer update`
 
@@ -303,9 +262,8 @@ INSTALLATION_COMPLETE=true
 ## Reinstalling on Another cPanel Account
 
 1. Upload files to new server
-2. Copy `.env.example` to `.env` (remove old .env if exists)
-3. Set `INSTALLATION_COMPLETE=false` in .env
-4. Visit `/install` and complete the wizard
+2. Remove the installer marker: `rm config/installer.php`
+3. Visit `/install` and complete the wizard
 
 ---
 

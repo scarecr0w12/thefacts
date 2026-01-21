@@ -138,6 +138,9 @@ class InstallerController extends Controller
         $appConfigPath = config_path('app.php');
         $appConfig = File::get($appConfigPath);
         
+        // Generate APP_KEY
+        $appKey = 'base64:' . base64_encode(random_bytes(32));
+        
         $appConfig = str_replace(
             "'name' => 'VeriCrowd',",
             "'name' => '{$config['app_name']}'.",
@@ -146,6 +149,11 @@ class InstallerController extends Controller
         $appConfig = str_replace(
             "'url' => 'http://localhost',",
             "'url' => '{$config['app_url']}'.",
+            $appConfig
+        );
+        $appConfig = str_replace(
+            "'key' => '',",
+            "'key' => '{$appKey}',",
             $appConfig
         );
         
