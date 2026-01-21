@@ -9,8 +9,8 @@ use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 // Installation routes (no middleware)
-Route::get('/install', [InstallerController::class, 'show'])->name('installer.show');
-Route::post('/install', [InstallerController::class, 'store'])->name('installer.store');
+Route::get('/install', [InstallerController::class, 'show'])->name('installer.show')->withoutMiddleware(['web']);
+Route::post('/install', [InstallerController::class, 'store'])->name('installer.store')->withoutMiddleware(['web']);
 
 // Auth routes
 Route::get('/register', [RegisterController::class, 'show'])->name('register');
