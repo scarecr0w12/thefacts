@@ -1,0 +1,27 @@
+---
+deployment:
+  tasks:
+    # Set deployment path (adjust to your cPanel account username and deployment directory)
+    - export DEPLOYPATH=/home/thesearethefacts/public_html/
+    # Copy application files (excluding sensitive directories)
+    - /bin/cp -R app $DEPLOYPATH
+    - /bin/cp -R bootstrap $DEPLOYPATH
+    - /bin/cp -R config $DEPLOYPATH
+    - /bin/cp -R database $DEPLOYPATH
+    - /bin/cp -R resources $DEPLOYPATH
+    - /bin/cp -R routes $DEPLOYPATH
+    - /bin/cp -R artisan $DEPLOYPATH
+    - /bin/cp -R composer.json $DEPLOYPATH
+    - /bin/cp -R composer.lock $DEPLOYPATH
+    # Copy documentation files
+    - /bin/cp -R *.md $DEPLOYPATH
+    # Set proper permissions for Laravel directories
+    - chmod -R 755 $DEPLOYPATH/bootstrap/cache
+    - chmod -R 755 $DEPLOYPATH/storage
+    - chmod -R 755 $DEPLOYPATH/storage/framework
+    - chmod -R 755 $DEPLOYPATH/storage/logs
+    # Note: You may need to run these additional commands via SSH after deployment:
+    # composer install --no-dev --optimize-autoloader
+    # php artisan migrate --force
+    # php artisan cache:clear
+    # php artisan config:cache
