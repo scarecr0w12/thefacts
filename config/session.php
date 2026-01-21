@@ -1,10 +1,18 @@
 <?php
 
 return [
-    'default' => 'array',
+    'default' => 'cookie',
     'lifetime' => 120,
     'expire_on_close' => false,
-    'encrypt' => false,
+    'encrypt' => true,
+    'stores' => [
+        'array' => [
+            'driver' => 'array',
+        ],
+        'cookie' => [
+            'driver' => 'cookie',
+        ],
+    ],
     'files' => storage_path('framework/sessions'),
     'connection' => null,
     'table' => 'sessions',
