@@ -41,3 +41,5 @@ Route::post('/evidence/{evidence}/vote', [VoteController::class, 'store'])
     ->middleware('auth')
     ->name('votes.store');
 
+// Admin routes
+require __DIR__ . '/admin.php';
