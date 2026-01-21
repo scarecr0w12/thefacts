@@ -1,13 +1,14 @@
 <?php
 
 return [
-    'default' => 'null',
+    'default' => 'file',
     'lifetime' => 120,
     'expire_on_close' => false,
     'encrypt' => false,
     'stores' => [
-        'null' => [
-            'driver' => 'null',
+        'file' => [
+            'driver' => 'file',
+            'path' => storage_path('framework/sessions'),
         ],
     ],
     'files' => storage_path('framework/sessions'),
